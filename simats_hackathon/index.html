@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>News App</title>
+  <style>
+    /* ... (keep existing styles) ... */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      min-height: 100vh;
+    }
+    #sidebar {
+      background-color: #f0f0f0;
+      padding: 20px;
+      width: 300px;
+      transition: margin-left 0.3s ease-in-out;
+    }
+    #sidebar.hidden {
+      margin-left: -300px;
+    }
+    #toggle-sidebar {
+      position: fixed;
+      left: 10px;
+      top: 10px;
+      z-index: 1000;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      padding: 10px;
+      cursor: pointer;
+    }
+    main {
+      flex-grow: 1;
+      padding: 20px;
+      transition: margin-left 0.3s ease-in-out;
+    }
+    .news-item {
+      background-color: #fff;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      padding: 15px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    .news-item h2 {
+      margin-top: 0;
+      color: #333;
+    }
+    .news-item a {
+      color: #4CAF50;
+      text-decoration: none;
+    }
+    #apply-btn {
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px 15px;
+      border: none;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+    select, input {
+      width: 100%;
+      padding: 5px;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div id="sidebar">
+    <h1>news one</h1>
+    <p>
+      A place where you get to about all directions.
+      Apply the filter and see the change!!!
+    </p>
+    <form id="news-form" method="get" autocomplete="on">
+      <h2>Query</h2>
+      <input
+        type="text"
+        name="keyword-search"
+        id="keyword-search"
+        placeholder="Enter search query"
+      />
+      <h2>Country</h2>
+      <select name="country" id="country" title="Select a country">
+        <option value="" selected="selected">Select a Country</option>
+        <option value="in">India</option>
+        <!-- Add other country options as needed -->
+      </select>
+      <h2>Language</h2>
+      <select name="set-language" id="set-language" title="Select a language">
+        <option value="en">English</option>
+        <option value="hi">Hindi</option>
+        <!-- Add other language options as needed -->
+      </select>
+      <button type="submit" id="apply-btn">APPLY</button>
+    </form>
+    <div id="loader">Loading...</div>
+  </div>
+
+  <main id="news-container"></main>
+
+  <script>
+    const API_KEY = '9fa0912364874bf7bf0687c0b8b4ecc1';
+    const form = document.getElementById('news-form');
+    const loader = document.getElementById('loader');
+    const newsContainer = document.getElementById('news-container');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const query = document.getElementById('keyword-search').value;
+      const country = document.getElementById('country').value;
+      const language = document.getElementById('set-language').value;
+
+      console.log('Form inputs:', { query, country, language });
+
+      loader.style.display = 'block';
+      newsContainer.innerHTML = '';
+
+      try {
+   
+        const url = "https://newsapi.org/v2/everything?apiKey=${API_KEY}&q=${encodeURIComponent(query)}&language=${language}";
+        console.log('Fetching from URL:', url);
+
+        const response = await fetch(url);
+        console.log('Response status:', response.status);
+        const data = await response.json();
+
+        console.log('API Response:', data);
+
+        if (data.status === 'ok' && data.articles && data.articles.length > 0) {
+          data.articles.forEach(article => {
+            const articleElement = document.createElement('div');
+            articleElement.classList.add('news-item');
+            articleElement.innerHTML = `
+              <h2>${article.title}</h2>
+              <p>${article.description || 'No description available'}</p>
+              <a href="${article.url}" target="_blank">Read more</a>
+            `;
+            newsContainer.appendChild(articleElement);
+          });
+        } else if (data.status === 'ok' && (!data.articles || data.articles.length === 0)) {
+          newsContainer.innerHTML = '<p>No news articles found for the given criteria.</p>';
+        } else {
+          throw new Error(data.message || 'Failed to fetch news');
+        }
+      } catch (error) {
+        console.error('Error fetching news:', error);
+        newsContainer.innerHTML = <p>Error: ${error.message}</p>;
+      } finally {
+        loader.style.display = 'none';
+      }
+    });
+  </script>
+  <iframe width="450" height="420" src="https://embed.windy.com/embed.html?type=map&location=coordinates&metricRain=default&metricTemp=°C&metricWind=default&zoom=8&overlay=wind&product=ecmwf&level=surface&lat=12.566&lon=80.276&detailLat=13.026&detailLon=80.024&detail=true&pressure=true" frameborder="0" ></iframe>
+ 
+   
+<div class="tradingview-widget-container">
+    <div class="tradingview-widget-container__widget"></div>
+    <div class="tradingview-widget-copyright"><a href="https://www.tradingview.com/" rel="noopener nofollow" target="_blank"></a></div>
+    <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-hotlists.js" async>
+
+    {
+    "colorTheme": "dark",
+    "dateRange": "12M",
+    "exchange": "BSE",
+    "showChart": true,
+    "locale": "en",
+    "largeChartUrl": "",
+    "isTransparent": false,
+    "showSymbolLogo": false,
+    "showFloatingTooltip": false,
+    "width": "450",
+    "height": "450",
+    "plotLineColorGrowing": "rgba(41, 98, 255, 1)",
+    "plotLineColorFalling": "rgba(41, 98, 255, 1)",
+    "gridLineColor": "rgba(42, 46, 57, 0)",
+    "scaleFontColor": "rgba(209, 212, 220, 1)",
+    "belowLineFillColorGrowing": "rgba(41, 98, 255, 0.12)",
+    "belowLineFillColorFalling": "rgba(41, 98, 255, 0.12)",
+    "belowLineFillColorGrowingBottom": "rgba(41, 98, 255, 0)",
+    "belowLineFillColorFallingBottom": "rgba(41, 98, 255, 0)",
+    "symbolActiveColor": "rgba(41, 98, 255, 0.12)"
+    
+    }
+</script>
+  </div>
+  
+</body>
+</html>
