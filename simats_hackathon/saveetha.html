@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>News App</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      min-height: 100vh;
+    }
+    #sidebar {
+
+      background-color: #f0f0f0;
+      padding: 20px;
+      width: 300px;
+      transition: margin-left 0.3s ease-in-out;
+    }
+    #sidebar.hidden {
+      margin-left: -300px;
+    }
+    #toggle-sidebar {
+      position: fixed;
+      left: 10px;
+      top: 10px;
+      z-index: 100;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      padding: 10px;
+      cursor: pointer;
+    }
+    main {
+      flex-grow: 1;
+      padding: 20px;
+      transition: margin-left 0.3s ease-in-out;
+    }
+    .news-item {
+      background-color: #fff;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      padding: 15px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    .news-item h2 {
+      margin-top: 0;
+      color: #333;
+    }
+    .news-item a {
+      color: #4CAF50;
+      text-decoration: none;
+    }
+    #apply-btn {
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px 15px;
+      border: none;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+    select, input {
+      width: 100%;
+      padding: 5px;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div id="sidebar">
+    <h1>news one</h1>
+    <p>
+      A place where you get to about all directions.
+      Apply the filter and see the change!!!
+    </p>
+    <form id="news-form" method="get" autocomplete="on">
+      <h2>Preference</h2>
+      <input
+        type="text"
+        name="keyword-search"
+        id="keyword-search"
+        placeholder="Enter search query"
+      />
+      <h2>Country</h2>
+      <select name="country" id="country" title="Select a country">
+        <option value="" selected="selected">Select a Country</option>
+      
+        <option value="af">Afghanistan</option>
+        <option value="al">Albania</option>
+        <option value="dz">Algeria</option>
+        <option value="as">American Samoa</option>
+        <option value="ad">Andorra</option>
+        <option value="ao">Angola</option>
+        <option value="ai">Anguilla</option>
+        <option value="aq">Antarctica</option>
+        <option value="ag">Antigua and Barbuda</option>
+        <option value="ar">Argentina</option>
+        <option value="am">Armenia</option>
+        <option value="aw">Aruba</option>
+        <option value="au">Australia</option>
+        <option value="at">Austria</option>
+        <option value="az">Azerbaijan</option>
+        <option value="bs">Bahamas</option>
+        <option value="bh">Bahrain</option>
+        <option value="bd">Bangladesh</option>
+        <option value="bb">Barbados</option>
+        <option value="by">Belarus</option>
+        <option value="be">Belgium</option>
+        <option value="bz">Belize</option>
+        <option value="bj">Benin</option>
+        <option value="bm">Bermuda</option>
+        <option value="bt">Bhutan</option>
+        <option value="bo">Bolivia</option>
+        <option value="ba">Bosnia and Herzegovina</option>
+        <option value="bw">Botswana</option>
+        <option value="br">Brazil</option>
+        <option value="bn">Brunei Darussalam</option>
+        <option value="bg">Bulgaria</option>
+        <option value="bf">Burkina Faso</option>
+        <option value="bi">Burundi</option>
+        <option value="cv">Cabo Verde</option>
+        <option value="kh">Cambodia</option>
+        <option value="cm">Cameroon</option>
+        <option value="ca">Canada</option>
+        <option value="ky">Cayman Islands</option>
+        <option value="cf">Central African Republic</option>
+        <option value="td">Chad</option>
+        <option value="cl">Chile</option>
+        <option value="cn">China</option>
+        <option value="co">Colombia</option>
+        <option value="km">Comoros</option>
+        <option value="cg">Congo</option>
+        <option value="cd">Congo (DRC)</option>
+        <option value="cr">Costa Rica</option>
+        <option value="hr">Croatia</option>
+        <option value="cu">Cuba</option>
+        <option value="cy">Cyprus</option>
+        <option value="cz">Czechia</option>
+        <option value="dk">Denmark</option>
+        <option value="dj">Djibouti</option>
+        <option value="dm">Dominica</option>
+        <option value="do">Dominican Republic</option>
+        <option value="ec">Ecuador</option>
+        <option value="eg">Egypt</option>
+        <option value="sv">El Salvador</option>
+        <option value="gq">Equatorial Guinea</option>
+        <option value="er">Eritrea</option>
+        <option value="ee">Estonia</option>
+        <option value="sz">Eswatini</option>
+        <option value="et">Ethiopia</option>
+        <option value="fj">Fiji</option>
+        <option value="fi">Finland</option>
+        <option value="fr">France</option>
+        <option value="ga">Gabon</option>
+        <option value="gm">Gambia</option>
+        <option value="ge">Georgia</option>
+        <option value="de">Germany</option>
+        <option value="gh">Ghana</option>
+        <option value="gr">Greece</option>
+        <option value="gl">Greenland</option>
+        <option value="gd">Grenada</option>
+        <option value="gu">Guam</option>
+        <option value="gt">Guatemala</option>
+        <option value="gn">Guinea</option>
+        <option value="gw">Guinea-Bissau</option>
+        <option value="gy">Guyana</option>
+        <option value="ht">Haiti</option>
+        <option value="hn">Honduras</option>
+        <option value="hu">Hungary</option>
+        <option value="is">Iceland</option>
+        <option value="in">India</option>
+        <option value="id">Indonesia</option>
+        <option value="ir">Iran</option>
+        <option value="iq">Iraq</option>
+        <option value="ie">Ireland</option>
+        <option value="il">Israel</option>
+        <option value="it">Italy</option>
+        <option value="ci">Ivory Coast</option>
+        <option value="jm">Jamaica</option>
+        <option value="jp">Japan</option>
+        <option value="jo">Jordan</option>
+        <option value="kz">Kazakhstan</option>
+        <option value="ke">Kenya</option>
+        <option value="ki">Kiribati</option>
+        <option value="kr">Korea</option>
+        <option value="kw">Kuwait</option>
+        <option value="kg">Kyrgyzstan</option>
+        <option value="la">Laos</option>
+        <option value="lv">Latvia</option>
+        <option value="lb">Lebanon</option>
+        <option value="ls">Lesotho</option>
+        <option value="lr">Liberia</option>
+        <option value="ly">Libya</option>
+        <option value="li">Liechtenstein</option>
+        <option value="lt">Lithuania</option>
+        <option value="lu">Luxembourg</option>
+        <option value="mg">Madagascar</option>
+        <option value="mw">Malawi</option>
+        <option value="my">Malaysia</option>
+        <option value="mv">Maldives</option>
+        <option value="ml">Mali</option>
+        <option value="mt">Malta</option>
+        <option value="mh">Marshall Islands</option>
+        <option value="mr">Mauritania</option>
+        <option value="mu">Mauritius</option>
+        <option value="mx">Mexico</option>
+        <option value="fm">Micronesia</option>
+        <option value="md">Moldova</option>
+        <option value="mc">Monaco</option>
+        <option value="mn">Mongolia</option>
+        <option value="me">Montenegro</option>
+        <option value="ma">Morocco</option>
+        <option value="mz">Mozambique</option>
+        <option value="mm">Myanmar</option>
+        <option value="na">Namibia</option>
+        <option value="nr">Nauru</option>
+        <option value="np">Nepal</option>
+        <option value="nl">Netherlands</option>
+        <option value="nz">New Zealand</option>
+        <option value="ni">Nicaragua</option>
+        <option value="ne">Niger</option>
+        <option value="ng">Nigeria</option>
+        <option value="no">Norway</option>
+        <option value="om">Oman</option>
+        <option value="pk">Pakistan</option>
+        <option value="pw">Palau</option>
+        <option value="ps">Palestine</option>
+        <option value="pa">Panama</option>
+        <option value="pg">Papua New Guinea</option>
+        <option value="py">Paraguay</option>
+        <option value="pe">Peru</option>
+        <option value="ph">Philippines</option>
+        <option value="pl">Poland</option>
+        <option value="pt">Portugal</option>
+        <option value="pr">Puerto Rico</option>
+        <option value="qa">Qatar</option>
+        <option value="ro">Romania</option>
+        <option value="ru">Russia</option>
+        <option value="rw">Rwanda</option>
+        <option value="kn">Saint Kitts and Nevis</option>
+        <option value="lc">Saint Lucia</option>
+        <option value="vc">Saint Vincent and the Grenadines</option>
+        <option value="ws">Samoa</option>
+        <option value="sm">San Marino</option>
+        <option value="st">Sao Tome and Principe</option>
+        <option value="sa">Saudi Arabia</option>
+        <option value="sn">Senegal</option> 
+      
+      </select>
+      <h2>Language</h2>
+      <select name="set-language" id="set-language" title="Select a language">
+        <option value="en">English</option>
+        <option value="hi">Hindi</option>
+      </select>
+      <button type="submit" id="apply-btn">APPLY</button>
+    </form>
+    <div id="loader">Loading...</div>
+  </div>
+
+  <main id="news-container"></main>
+
+  <script>
+    const API_KEY = '9fa0912364874bf7bf0687c0b8b4ecc1';
+    const form = document.getElementById('news-form');
+    const loader = document.getElementById('loader');
+    const newsContainer = document.getElementById('news-container');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const query = document.getElementById('keyword-search').value;
+      const country = document.getElementById('country').value;
+      const language = document.getElementById('set-language').value;
+
+      console.log('Form inputs:', { query, country, language });
+
+      loader.style.display = 'block';
+      newsContainer.innerHTML = '';
+
+      try {
+   
+        const url = `https://newsapi.org/v2/everything?apiKey=${API_KEY}&q=${encodeURIComponent(query)}&language=${language}`;
+        console.log('Fetching from URL:', url);
+
+        const response = await fetch(url);
+        console.log('Response status:', response.status);
+        const data = await response.json();
+
+        console.log('API Response:', data);
+
+        if (data.status === 'ok' && data.articles && data.articles.length > 0) {
+          data.articles.forEach(article => {
+            const articleElement = document.createElement('div');
+            articleElement.classList.add('news-item');
+            articleElement.innerHTML = `
+              <h2>${article.title}</h2>
+              <p>${article.description || 'No description available'}</p>
+              <a href="${article.url}" target="_blank">Read more</a>
+            `;
+            newsContainer.appendChild(articleElement);
+          });
+        } else if (data.status === 'ok' && (!data.articles || data.articles.length === 0)) {
+          newsContainer.innerHTML = '<p>No news articles found for the given criteria.</p>';
+        } else {
+          throw new Error(data.message || 'Failed to fetch news');
+        }
+      } catch (error) {
+        console.error('Error fetching news:', error);
+        newsContainer.innerHTML = `<p>Error: ${error.message}</p>`;
+      } finally {
+        loader.style.display = 'none';
+      }
+    });
+
+  </script>
+   <iframe width="450" height="420" src="https://embed.windy.com/embed.html?type=map&location=coordinates&metricRain=default&metricTemp=°C&metricWind=default&zoom=8&overlay=wind&product=ecmwf&level=surface&lat=12.566&lon=80.276&detailLat=13.026&detailLon=80.024&detail=true&pressure=true" frameborder="0" ></iframe>
+ 
+</body>
+</html>
